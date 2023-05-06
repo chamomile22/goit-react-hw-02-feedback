@@ -5,51 +5,42 @@ export class Feedback extends React.Component {
     good: 0,
     neutral: 0,
     bad: 0,
-    total: 0,
-    percentage: 0,
   };
 
   handleGoodFeedback = () => {
     this.setState(prevState => ({
       good: (prevState.good += 1),
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
   handleNeutralFeedback = () => {
     this.setState(prevState => ({
       neutral: (prevState.neutral += 1),
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
   handleBadFeedback = () => {
     this.setState(prevState => ({
       bad: (prevState.bad += 1),
     }));
-    this.countTotalFeedback();
-    this.countPositiveFeedbackPercentage();
   };
 
-  countTotalFeedback = () => {
-    this.setState(prevState => ({
-      total: (prevState.total =
-        prevState.good + prevState.neutral + prevState.bad),
-    }));
+  countTotalFeedback = (good, neutral, bad) => {
+    let total = 0;
+    total = good + neutral + bad;
+    return total;
   };
-  countPositiveFeedbackPercentage = () => {
-    this.setState(prevState => ({
-      percentage: (prevState.percentage =
-        (prevState.good /
-          (prevState.good + prevState.neutral + prevState.bad)) *
-        100),
-    }));
+  countPositiveFeedbackPercentage = (good, neutral, bad) => {
+    let percentage = 0;
+    console.log(percentage);
+    percentage = (good / (good + neutral + bad)) * 100;
+    console.log(percentage);
+    return percentage;
   };
 
   render() {
+    const { good, neutral, bad } = this.state;
     return (
       <>
-        <h1>Please leave your feedback</h1>
+        <h2>Please leave your feedback</h2>
         <ul>
           <li>
             <button type="button" onClick={this.handleGoodFeedback}>
@@ -68,11 +59,17 @@ export class Feedback extends React.Component {
           </li>
         </ul>
         <h2>Statistics</h2>
-        <p>Good:{this.state.good}</p>
-        <p>Neutral:{this.state.neutral}</p>
-        <p>Bad:{this.state.bad}</p>
-        <p>Total:{this.state.total}</p>
-        <p>Percentage:{this.state.percentage}%</p>
+        <p>Good:{good}</p>
+        <p>Neutral:{neutral}</p>
+        <p>Bad:{bad}</p>
+        <p>Total:{this.countTotalFeedback(good, neutral, bad)}</p>
+        <p>
+          Percentage:
+          {console.log(
+            this.countPositiveFeedbackPercentage(good, neutral, bad)
+          )}
+          %
+        </p>
       </>
     );
   }
