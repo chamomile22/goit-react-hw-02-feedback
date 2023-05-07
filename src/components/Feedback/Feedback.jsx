@@ -30,7 +30,7 @@ export class Feedback extends React.Component {
   render() {
     const { good, neutral, bad } = this.state;
     return (
-      <>
+      <div style={{ marginLeft: 10 }}>
         <Section title="Please leave your feedback">
           <FeedbackOptions
             options={Object.keys(this.state)}
@@ -54,7 +54,7 @@ export class Feedback extends React.Component {
             <Notification message="There is no feedback" />
           )}
         </Section>
-      </>
+      </div>
     );
   }
 }
